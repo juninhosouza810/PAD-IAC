@@ -18,28 +18,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 20px;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 20px;
+            padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 1100px;
             width: 100%;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Layout desktop */
-        @media (min-width: 768px) {
-            .container {
-                flex-direction: row;
-                padding: 40px;
-                gap: 30px;
-            }
+            gap: 30px;
         }
 
         .main-content {
@@ -48,56 +38,39 @@
 
         .volume-control {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 20px;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            order: -1;
-        }
-
-        /* Volume horizontal no mobile */
-        .volume-slider {
-            width: 100%;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        /* Volume vertical no desktop */
-        @media (min-width: 768px) {
-            .volume-control {
-                flex-direction: column;
-                min-width: 100px;
-                order: 1;
-            }
-
-            .volume-slider {
-                -webkit-appearance: slider-vertical;
-                width: 40px;
-                height: 300px;
-            }
-
-            .volume-label {
-                writing-mode: vertical-rl;
-                text-orientation: mixed;
-            }
+            min-width: 100px;
         }
 
         .volume-label {
             color: white;
             font-weight: bold;
             font-size: 0.9em;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .volume-slider {
+            -webkit-appearance: slider-vertical;
+            width: 40px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            outline: none;
+            cursor: pointer;
         }
 
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             background: white;
             border-radius: 50%;
             cursor: pointer;
@@ -105,8 +78,8 @@
         }
 
         .volume-slider::-moz-range-thumb {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             background: white;
             border-radius: 50%;
             cursor: pointer;
@@ -116,98 +89,59 @@
 
         .volume-value {
             color: white;
-            font-size: 1em;
+            font-size: 1.2em;
             font-weight: bold;
-            min-width: 45px;
-            text-align: center;
         }
 
         .header {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .logo {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (min-width: 768px) {
-            .logo {
-                width: 80px;
-                height: 80px;
-            }
         }
 
         h1 {
             text-align: center;
             color: #333;
-            font-size: 1.5em;
+            font-size: 2.5em;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             margin: 0;
-        }
-
-        @media (min-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-            }
         }
 
         .subtitle {
             text-align: center;
             color: #667eea;
-            font-size: 0.85em;
+            font-size: 1em;
             font-weight: bold;
             margin-top: 5px;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .subtitle {
-                font-size: 1em;
-                width: auto;
-            }
         }
 
         .sound-types {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .sound-types {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 15px;
-                margin-bottom: 35px;
-            }
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
         }
 
         .sound-type-btn {
-            padding: 15px 10px;
+            padding: 20px;
             border: 3px solid transparent;
             border-radius: 15px;
-            font-size: 0.85em;
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
             color: #333;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (min-width: 768px) {
-            .sound-type-btn {
-                padding: 20px;
-                font-size: 1em;
-            }
         }
 
         .sound-type-btn:hover {
@@ -238,62 +172,34 @@
         }
 
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .section-title {
-            font-size: 1em;
+            font-size: 1.2em;
             color: #555;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: bold;
-        }
-
-        @media (min-width: 768px) {
-            .section-title {
-                font-size: 1.2em;
-                margin-bottom: 15px;
-            }
         }
 
         .pads-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        @media (min-width: 480px) {
-            .pads-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .pads-grid {
-                grid-template-columns: repeat(6, 1fr);
-                gap: 15px;
-                margin-bottom: 20px;
-            }
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .pad {
             aspect-ratio: 1;
             border: none;
             border-radius: 15px;
-            font-size: 1em;
+            font-size: 1.2em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-            touch-action: manipulation;
-        }
-
-        @media (min-width: 768px) {
-            .pad {
-                font-size: 1.2em;
-            }
         }
 
         .pad:hover {
@@ -330,20 +236,13 @@
 
         .custom-pads {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        @media (min-width: 768px) {
-            .custom-pads {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-            }
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
         }
 
         .file-input-wrapper {
             position: relative;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .file-input-wrapper input[type="file"] {
@@ -360,16 +259,10 @@
             background: #f0f0f0;
             border-radius: 8px;
             text-align: center;
-            font-size: 0.7em;
+            font-size: 0.8em;
             color: #666;
             cursor: pointer;
             transition: background 0.2s;
-        }
-
-        @media (min-width: 768px) {
-            .file-label {
-                font-size: 0.8em;
-            }
         }
 
         .file-label:hover {
@@ -384,29 +277,21 @@
         .controls {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .control-btn {
-            padding: 12px 25px;
+            padding: 12px 30px;
             border: none;
             border-radius: 25px;
-            font-size: 0.9em;
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            touch-action: manipulation;
-        }
-
-        @media (min-width: 768px) {
-            .control-btn {
-                padding: 12px 30px;
-                font-size: 1em;
-            }
         }
 
         .control-btn:hover {
@@ -417,123 +302,109 @@
         .info {
             text-align: center;
             color: #666;
-            font-size: 0.8em;
-            margin-top: 15px;
+            font-size: 0.9em;
+            margin-top: 20px;
             font-style: italic;
-            line-height: 1.4;
-        }
-
-        @media (min-width: 768px) {
-            .info {
-                font-size: 0.9em;
-                margin-top: 20px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <img src="https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
+                <div>
+                    <h1>🎵 PAD AMOR E CUIDADO</h1>
+                    <div class="subtitle">Controlador Musical Terapêutico</div>
+                </div>
+            </div>
+        
+        <div class="section">
+            <div class="section-title">Selecione o Tipo de Som</div>
+            <div class="sound-types">
+                <button class="sound-type-btn type-1 active" onclick="changeSoundType('sine')">
+                    ✨ Suave<br><small>Sine Wave</small>
+                </button>
+                <button class="sound-type-btn type-2" onclick="changeSoundType('triangle')">
+                    🌊 Melódico<br><small>Triangle</small>
+                </button>
+                <button class="sound-type-btn type-3" onclick="changeSoundType('sawtooth')">
+                    🎸 Envolvente<br><small>Sawtooth</small>
+                </button>
+                <button class="sound-type-btn type-4" onclick="changeSoundType('pad')">
+                    🌌 Atmosférico<br><small>PAD Complex</small>
+                </button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Notas Musicais</div>
+            <div class="pads-grid" id="notePads"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Pads Personalizados</div>
+            <div class="custom-pads" id="customPads"></div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" onclick="stopAll()">⏹ Parar Todos</button>
+        </div>
+
+        <div class="info">
+            Clique nos pads de notas para reproduzir áudios do GitHub em loop automático. Clique novamente para parar.
+        </div>
+        </div>
+
         <div class="volume-control">
             <div class="volume-label">VOLUME</div>
             <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider" orient="vertical">
             <div class="volume-value" id="volumeValue">70%</div>
-        </div>
-
-        <div class="main-content">
-            <div class="header">
-                <img src="https://github.com/user-attachments/assets/64c4607b-8deb-4798-98cd-afe40f43d0ab" alt="Logo" class="logo" onerror="this.style.display='none'">
-                <div>
-                    <h1>🎵 PAD AMOR E CUIDADO</h1>
-                    <div class="subtitle">Ministério Adoração IAC Guararapes</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Selecione o Tipo de Som</div>
-                <div class="sound-types">
-                    <button class="sound-type-btn type-1 active" onclick="changeSoundType('sine')">
-                        ✨ Suave<br><small>Sine Wave</small>
-                    </button>
-                    <button class="sound-type-btn type-2" onclick="changeSoundType('triangle')">
-                        🌊 Melódico<br><small>Triangle</small>
-                    </button>
-                    <button class="sound-type-btn type-3" onclick="changeSoundType('sawtooth')">
-                        🎸 Envolvente<br><small>Sawtooth</small>
-                    </button>
-                    <button class="sound-type-btn type-4" onclick="changeSoundType('pad')">
-                        🌌 Atmosférico<br><small>PAD Complex</small>
-                    </button>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Notas Musicais</div>
-                <div class="pads-grid" id="notePads"></div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Pads Personalizados</div>
-                <div class="custom-pads" id="customPads"></div>
-            </div>
-
-            <div class="controls">
-                <button class="control-btn" onclick="stopAll()">⏹ Parar Todos</button>
-            </div>
-
-            <div class="info">
-                Escolha um tipo de som acima e clique nos pads para tocar sons contínuos. Clique novamente para parar.
-            </div>
         </div>
     </div>
 
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-        const noteFrequencies = {
-            'C': 261.63,
-            'C#': 277.18,
-            'D': 293.66,
-            'D#': 311.13,
-            'E': 329.63,
-            'F': 349.23,
-            'F#': 369.99,
-            'G': 392.00,
-            'G#': 415.30,
-            'A': 440.00,
-            'A#': 466.16,
-            'B': 493.88
+        
+        // URLs dos arquivos de áudio no GitHub (substitua com seus URLs reais)
+        const noteAudioUrls = {
+            'C': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/C.mp3',
+            'C#': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/C-sharp.mp3',
+            'D': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/D.mp3',
+            'D#': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/D-sharp.mp3',
+            'E': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/E.mp3',
+            'F': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/F.mp3',
+            'F#': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/F-sharp.mp3',
+            'G': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/G.mp3',
+            'G#': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/G-sharp.mp3',
+            'A': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/A.mp3',
+            'A#': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/A-sharp.mp3',
+            'B': 'https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/sounds/B.mp3'
         };
 
         let currentSoundType = 'sine';
         let masterVolume = 0.7;
         const activeOscillators = {};
+        const noteAudioBuffers = {};
         const customAudioBuffers = {};
         const customAudioSources = {};
-
-        // Inicialização
-        function init() {
-            notes.forEach(note => {
-                document.getElementById('notePads').appendChild(createNotePad(note));
-            });
-
-            for (let i = 0; i < 6; i++) {
-                document.getElementById('customPads').appendChild(createCustomPad(i));
-            }
-        }
+        let isLoadingAudio = false;
 
         document.getElementById('volumeSlider').addEventListener('input', function(e) {
             masterVolume = e.target.value / 100;
             document.getElementById('volumeValue').textContent = e.target.value + '%';
-
-            Object.values(activeOscillators).forEach(osc => {
-                if (osc.gainNode) {
-                    osc.gainNode.gain.setValueAtTime(
-                        masterVolume * (currentSoundType === 'pad' ? 1 : 0.25),
+            
+            // Atualizar volume dos áudios ativos
+            Object.values(activeOscillators).forEach(item => {
+                if (item.gainNode) {
+                    item.gainNode.gain.setValueAtTime(
+                        masterVolume * 0.7,
                         audioContext.currentTime
                     );
                 }
             });
-
+            
             Object.values(customAudioSources).forEach(source => {
                 if (source.gainNode) {
                     source.gainNode.gain.setValueAtTime(
@@ -544,21 +415,33 @@
             });
         });
 
-        function changeSoundType(type) {
-            currentSoundType = type;
+        // Carregar áudios das notas do GitHub
+        async function loadNoteAudio(note) {
+            if (noteAudioBuffers[note]) return noteAudioBuffers[note];
+            
+            try {
+                const response = await fetch(noteAudioUrls[note]);
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar áudio: ${response.status}`);
+                }
+                const arrayBuffer = await response.arrayBuffer();
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                noteAudioBuffers[note] = audioBuffer;
+                return audioBuffer;
+            } catch (error) {
+                console.error(`Erro ao carregar áudio da nota ${note}:`, error);
+                return null;
+            }
+        }
 
+        function changeSoundType(type) {
+            // Esta função agora apenas muda a aparência visual
+            currentSoundType = type;
+            
             document.querySelectorAll('.sound-type-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.closest('.sound-type-btn').classList.add('active');
-
-            Object.keys(activeOscillators).forEach(note => {
-                const pad = Array.from(document.querySelectorAll('.pad.note')).find(p => p.textContent === note);
-                if (pad) {
-                    stopNote(note, pad);
-                    playNote(note, pad);
-                }
-            });
         }
 
         function createNotePad(note) {
@@ -571,32 +454,32 @@
 
         function createCustomPad(index) {
             const wrapper = document.createElement('div');
-
+            
             const pad = document.createElement('button');
             pad.className = 'pad custom';
             pad.textContent = `PAD ${index + 1}`;
             pad.onclick = () => toggleCustomSound(index, pad);
-
+            
             const fileWrapper = document.createElement('div');
             fileWrapper.className = 'file-input-wrapper';
-
+            
             const fileInput = document.createElement('input');
             fileInput.type = 'file';
             fileInput.accept = 'audio/*';
             fileInput.id = `file-${index}`;
             fileInput.onchange = (e) => loadCustomSound(index, e.target.files[0], pad);
-
+            
             const fileLabel = document.createElement('label');
             fileLabel.className = 'file-label';
             fileLabel.textContent = 'Carregar áudio';
             fileLabel.htmlFor = `file-${index}`;
-
+            
             fileWrapper.appendChild(fileInput);
             fileWrapper.appendChild(fileLabel);
-
+            
             wrapper.appendChild(pad);
             wrapper.appendChild(fileWrapper);
-
+            
             return wrapper;
         }
 
@@ -608,98 +491,44 @@
             }
         }
 
-        function playNote(note, pad) {
-            const frequency = noteFrequencies[note];
-            const gainNode = audioContext.createGain();
-
-            if (currentSoundType === 'pad') {
-                const osc1 = audioContext.createOscillator();
-                const osc2 = audioContext.createOscillator();
-                const osc3 = audioContext.createOscillator();
-
-                const gain1 = audioContext.createGain();
-                const gain2 = audioContext.createGain();
-                const gain3 = audioContext.createGain();
-
-                osc1.type = 'sawtooth';
-                osc2.type = 'sawtooth';
-                osc3.type = 'sine';
-
-                osc1.frequency.value = frequency;
-                osc2.frequency.value = frequency * 1.01;
-                osc3.frequency.value = frequency * 2;
-
-                gain1.gain.value = 0.15;
-                gain2.gain.value = 0.15;
-                gain3.gain.value = 0.1;
-
-                osc1.connect(gain1);
-                osc2.connect(gain2);
-                osc3.connect(gain3);
-
-                gain1.connect(gainNode);
-                gain2.connect(gainNode);
-                gain3.connect(gainNode);
-
-                const filter = audioContext.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.value = 2000;
-                filter.Q.value = 1;
-
-                gainNode.connect(filter);
-                filter.connect(audioContext.destination);
-
+        async function playNote(note, pad) {
+            // Tentar carregar e tocar o áudio do GitHub
+            const audioBuffer = await loadNoteAudio(note);
+            
+            if (audioBuffer) {
+                // Reproduzir áudio do GitHub em loop
+                const source = audioContext.createBufferSource();
+                source.buffer = audioBuffer;
+                source.loop = true;
+                
+                const gainNode = audioContext.createGain();
                 gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-                gainNode.gain.linearRampToValueAtTime(masterVolume, audioContext.currentTime + 0.5);
-
-                osc1.start();
-                osc2.start();
-                osc3.start();
-
-                activeOscillators[note] = { 
-                    oscillators: [osc1, osc2, osc3], 
-                    gainNode,
-                    filter 
-                };
-            } else {
-                const oscillator = audioContext.createOscillator();
-                oscillator.type = currentSoundType;
-                oscillator.frequency.value = frequency;
-
-                const filter = audioContext.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.value = currentSoundType === 'sawtooth' ? 1500 : 3000;
-                filter.Q.value = 1;
-
-                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-                gainNode.gain.linearRampToValueAtTime(masterVolume * 0.25, audioContext.currentTime + 0.3);
-
-                oscillator.connect(filter);
-                filter.connect(gainNode);
+                gainNode.gain.linearRampToValueAtTime(masterVolume * 0.7, audioContext.currentTime + 0.3);
+                
+                source.connect(gainNode);
                 gainNode.connect(audioContext.destination);
-
-                oscillator.start();
-
-                activeOscillators[note] = { oscillator, gainNode, filter };
+                
+                source.start();
+                
+                activeOscillators[note] = { source, gainNode };
+                pad.classList.add('active');
+            } else {
+                // Fallback: usar som sintético se o áudio não carregar
+                alert(`Não foi possível carregar o áudio da nota ${note}. Verifique se os arquivos estão no GitHub.`);
             }
-
-            pad.classList.add('active');
         }
 
         function stopNote(note, pad) {
             if (activeOscillators[note]) {
-                const { oscillator, oscillators, gainNode } = activeOscillators[note];
-                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
-
+                const { source, gainNode } = activeOscillators[note];
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2);
+                
                 setTimeout(() => {
-                    if (oscillator) {
-                        oscillator.stop();
+                    if (source) {
+                        source.stop();
                     }
-                    if (oscillators) {
-                        oscillators.forEach(osc => osc.stop());
-                    }
-                }, 300);
-
+                }, 200);
+                
                 delete activeOscillators[note];
                 pad.classList.remove('active');
             }
@@ -707,16 +536,16 @@
 
         function loadCustomSound(index, file, pad) {
             if (!file) return;
-
+            
             const reader = new FileReader();
             reader.onload = async (e) => {
                 try {
                     const arrayBuffer = e.target.result;
                     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
                     customAudioBuffers[index] = audioBuffer;
-
+                    
                     const label = document.querySelector(`label[for="file-${index}"]`);
-                    label.textContent = file.name.length > 15 ? file.name.substring(0, 15) + '...' : file.name;
+                    label.textContent = file.name;
                     label.classList.add('loaded');
                 } catch (error) {
                     alert('Erro ao carregar o arquivo de áudio. Certifique-se de que é um arquivo de áudio válido.');
@@ -742,15 +571,15 @@
             const source = audioContext.createBufferSource();
             source.buffer = customAudioBuffers[index];
             source.loop = true;
-
+            
             const gainNode = audioContext.createGain();
             gainNode.gain.value = masterVolume * 0.5;
-
+            
             source.connect(gainNode);
             gainNode.connect(audioContext.destination);
-
+            
             source.start();
-
+            
             customAudioSources[index] = { source, gainNode };
             pad.classList.add('active');
         }
@@ -770,21 +599,28 @@
         function stopAll() {
             notes.forEach(note => {
                 const pad = Array.from(document.querySelectorAll('.pad.note')).find(p => p.textContent === note);
-                if (pad && activeOscillators[note]) {
+                if (activeOscillators[note] && pad) {
                     stopNote(note, pad);
                 }
             });
 
             for (let i = 0; i < 6; i++) {
-                const pad = document.querySelectorAll('.pad.custom')[i];
-                if (pad && customAudioSources[i]) {
+                if (customAudioSources[i]) {
+                    const pad = document.querySelectorAll('.pad.custom')[i];
                     stopCustomSound(i, pad);
                 }
             }
         }
 
-        // Inicializar ao carregar
-        init();
+        const notePadsContainer = document.getElementById('notePads');
+        notes.forEach(note => {
+            notePadsContainer.appendChild(createNotePad(note));
+        });
+
+        const customPadsContainer = document.getElementById('customPads');
+        for (let i = 0; i < 6; i++) {
+            customPadsContainer.appendChild(createCustomPad(i));
+        }
     </script>
 </body>
 </html>
