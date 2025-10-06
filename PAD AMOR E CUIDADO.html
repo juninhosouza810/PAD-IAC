@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlador PAD Musical</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1100px;
+            width: 100%;
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .volume-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+        }
+
+        .volume-label {
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .volume-slider {
+            -webkit-appearance: slider-vertical;
+            width: 40px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .volume-value {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #667eea;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .sound-types {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .sound-type-btn {
+            padding: 20px;
+            border: 3px solid transparent;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sound-type-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .sound-type-btn.active {
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            transform: scale(1.05);
+        }
+
+        .sound-type-btn.type-1 {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        }
+
+        .sound-type-btn.type-2 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .sound-type-btn.type-3 {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .sound-type-btn.type-4 {
+            background: linear-gradient(135deg, #ffd3a5 0%, #fd6585 100%);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .pads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .pad {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pad:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .pad:active {
+            transform: translateY(0);
+        }
+
+        .pad.active {
+            transform: scale(0.95);
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .pad.note {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .pad.note.active {
+            background: linear-gradient(135deg, #5568d3 0%, #63408b 100%);
+        }
+
+        .pad.custom {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .pad.custom.active {
+            background: linear-gradient(135deg, #d67ce0 0%, #d84858 100%);
+        }
+
+        .custom-pads {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-label {
+            display: block;
+            padding: 8px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .file-label:hover {
+            background: #e0e0e0;
+        }
+
+        .file-label.loaded {
+            background: #4caf50;
+            color: white;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .info {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <img src="https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
+                <div>
+                    <h1>🎵 PAD AMOR E CUIDADO</h1>
+                    <div class="subtitle">Controlador Musical Terapêutico</div>
+                </div>
+            </div>
+        
+        <div class="section">
+            <div class="section-title">Selecione o Tipo de Som</div>
+            <div class="sound-types">
+                <button class="sound-type-btn type-1 active" onclick="changeSoundType('sine')">
+                    ✨ Suave<br><small>Sine Wave</small>
+                </button>
+                <button class="sound-type-btn type-2" onclick="changeSoundType('triangle')">
+                    🌊 Melódico<br><small>Triangle</small>
+                </button>
+                <button class="sound-type-btn type-3" onclick="changeSoundType('sawtooth')">
+                    🎸 Envolvente<br><small>Sawtooth</small>
+                </button>
+                <button class="sound-type-btn type-4" onclick="changeSoundType('pad')">
+                    🌌 Atmosférico<br><small>PAD Complex</small>
+                </button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Notas Musicais</div>
+            <div class="pads-grid" id="notePads"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Pads Personalizados</div>
+            <div class="custom-pads" id="customPads"></div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" onclick="stopAll()">⏹ Parar Todos</button>
+        </div>
+
+        <div class="info">
+            Escolha um tipo de som acima e clique nos pads para tocar sons contínuos. Clique novamente para parar.
+        </div>
+        </div>
+
+        <div class="volume-control">
+            <div class="volume-label">VOLUME</div>
+            <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider" orient="vertical">
+            <div class="volume-value" id="volumeValue">70%</div>
+        </div>
+    </div>
+
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const noteFrequencies = {
+            'C': 261.63,
+            'C#': 277.18,
+            'D': 293.66,
+            'D#': 311.13,
+            'E': 329.63,
+            'F': 349.23,
+            'F#': 369.99,
+            'G': 392.00,
+            'G#': 415.30,
+            'A': 440.00,
+            'A#': 466.16,
+            'B': 493.88
+        };
+
+        let currentSoundType = 'sine';
+        let masterVolume = 0.7;
+        const activeOscillators = {};
+        const customAudioBuffers = {};
+        const customAudioSources = {};
+
+        document.getElementById('volumeSlider').addEventListener('input', function(e) {
+            masterVolume = e.target.value / 100;
+            document.getElementById('volumeValue').textContent = e.target.value + '%';
+            
+            Object.values(activeOscillators).forEach(osc => {
+                if (osc.gainNode) {
+                    osc.gainNode.gain.setValueAtTime(
+                        masterVolume * (currentSoundType === 'pad' ? 1 : 0.25),
+                        audioContext.currentTime
+                    );
+                }
+            });
+            
+            Object.values(customAudioSources).forEach(source => {
+                if (source.gainNode) {
+                    source.gainNode.gain.setValueAtTime(
+                        masterVolume * 0.5,
+                        audioContext.currentTime
+                    );
+                }
+            });
+        });
+
+        function changeSoundType(type) {
+            currentSoundType = type;
+            
+            document.querySelectorAll('.sound-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.sound-type-btn').classList.add('active');
+            
+            Object.keys(activeOscillators).forEach(note => {
+                const pad = Array.from(document.querySelectorAll('.pad.note')).find(p => p.textContent === note);
+                stopNote(note, pad);
+                playNote(note, pad);
+            });
+        }
+
+        function createNotePad(note) {
+            const pad = document.createElement('button');
+            pad.className = 'pad note';
+            pad.textContent = note;
+            pad.onclick = () => toggleNote(note, pad);
+            return pad;
+        }
+
+        function createCustomPad(index) {
+            const wrapper = document.createElement('div');
+            
+            const pad = document.createElement('button');
+            pad.className = 'pad custom';
+            pad.textContent = `PAD ${index + 1}`;
+            pad.onclick = () => toggleCustomSound(index, pad);
+            
+            const fileWrapper = document.createElement('div');
+            fileWrapper.className = 'file-input-wrapper';
+            
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'audio/*';
+            fileInput.id = `file-${index}`;
+            fileInput.onchange = (e) => loadCustomSound(index, e.target.files[0], pad);
+            
+            const fileLabel = document.createElement('label');
+            fileLabel.className = 'file-label';
+            fileLabel.textContent = 'Carregar áudio';
+            fileLabel.htmlFor = `file-${index}`;
+            
+            fileWrapper.appendChild(fileInput);
+            fileWrapper.appendChild(fileLabel);
+            
+            wrapper.appendChild(pad);
+            wrapper.appendChild(fileWrapper);
+            
+            return wrapper;
+        }
+
+        function toggleNote(note, pad) {
+            if (activeOscillators[note]) {
+                stopNote(note, pad);
+            } else {
+                playNote(note, pad);
+            }
+        }
+
+        function playNote(note, pad) {
+            const frequency = noteFrequencies[note];
+            const gainNode = audioContext.createGain();
+            
+            if (currentSoundType === 'pad') {
+                const osc1 = audioContext.createOscillator();
+                const osc2 = audioContext.createOscillator();
+                const osc3 = audioContext.createOscillator();
+                
+                const gain1 = audioContext.createGain();
+                const gain2 = audioContext.createGain();
+                const gain3 = audioContext.createGain();
+                
+                osc1.type = 'sawtooth';
+                osc2.type = 'sawtooth';
+                osc3.type = 'sine';
+                
+                osc1.frequency.value = frequency;
+                osc2.frequency.value = frequency * 1.01;
+                osc3.frequency.value = frequency * 2;
+                
+                gain1.gain.value = 0.15;
+                gain2.gain.value = 0.15;
+                gain3.gain.value = 0.1;
+                
+                osc1.connect(gain1);
+                osc2.connect(gain2);
+                osc3.connect(gain3);
+                
+                gain1.connect(gainNode);
+                gain2.connect(gainNode);
+                gain3.connect(gainNode);
+                
+                const filter = audioContext.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 2000;
+                filter.Q.value = 1;
+                
+                gainNode.connect(filter);
+                filter.connect(audioContext.destination);
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(masterVolume, audioContext.currentTime + 0.5);
+                
+                osc1.start();
+                osc2.start();
+                osc3.start();
+                
+                activeOscillators[note] = { 
+                    oscillators: [osc1, osc2, osc3], 
+                    gainNode,
+                    filter 
+                };
+            } else {
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = currentSoundType;
+                oscillator.frequency.value = frequency;
+                
+                const filter = audioContext.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = currentSoundType === 'sawtooth' ? 1500 : 3000;
+                filter.Q.value = 1;
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(masterVolume * 0.25, audioContext.currentTime + 0.3);
+                
+                oscillator.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.start();
+                
+                activeOscillators[note] = { oscillator, gainNode, filter };
+            }
+            
+            pad.classList.add('active');
+        }
+
+        function stopNote(note, pad) {
+            if (activeOscillators[note]) {
+                const { oscillator, oscillators, gainNode } = activeOscillators[note];
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+                
+                setTimeout(() => {
+                    if (oscillator) {
+                        oscillator.stop();
+                    }
+                    if (oscillators) {
+                        oscillators.forEach(osc => osc.stop());
+                    }
+                }, 300);
+                
+                delete activeOscillators[note];
+                pad.classList.remove('active');
+            }
+        }
+
+        function loadCustomSound(index, file, pad) {
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const arrayBuffer = e.target.result;
+                    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                    customAudioBuffers[index] = audioBuffer;
+                    
+                    const label = document.querySelector(`label[for="file-${index}"]`);
+                    label.textContent = file.name;
+                    label.classList.add('loaded');
+                } catch (error) {
+                    alert('Erro ao carregar o arquivo de áudio. Certifique-se de que é um arquivo de áudio válido.');
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function toggleCustomSound(index, pad) {
+            if (customAudioSources[index]) {
+                stopCustomSound(index, pad);
+            } else {
+                playCustomSound(index, pad);
+            }
+        }
+
+        function playCustomSound(index, pad) {
+            if (!customAudioBuffers[index]) {
+                alert('Por favor, carregue um arquivo de áudio primeiro!');
+                return;
+            }
+
+            const source = audioContext.createBufferSource();
+            source.buffer = customAudioBuffers[index];
+            source.loop = true;
+            
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = masterVolume * 0.5;
+            
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            source.start();
+            
+            customAudioSources[index] = { source, gainNode };
+            pad.classList.add('active');
+        }
+
+        function stopCustomSound(index, pad) {
+            if (customAudioSources[index]) {
+                const { source, gainNode } = customAudioSources[index];
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.1);
+                setTimeout(() => {
+                    source.stop();
+                }, 100);
+                delete customAudioSources[index];
+                pad.classList.remove('active');
+            }
+        }
+
+        function stopAll() {
+            notes.forEach(note => {
+                const pad = Array.from(document.querySelectorAll('.pad.note')).find(p => p.textContent === note);
+                if (activeOscillators[note] && pad) {
+                    stopNote(note, pad);
+                }
+            });
+
+            for (let i = 0; i < 6; i++) {
+                if (customAudioSources[i]) {
+                    const pad = document.querySelectorAll('.pad.custom')[i];
+                    stopCustomSound(i, pad);
+                }
+            }
+        }
+
+        const notePadsContainer = document.getElementById('notePads');
+        notes.forEach(note => {
+            notePadsContainer.appendChild(createNotePad(note));
+        });
+
+        const customPadsContainer = document.getElementById('customPads');
+        for (let i = 0; i < 6; i++) {
+            customPadsContainer.appendChild(createCustomPad(i));
+        }
+    </script>
+</body>
+</html>
